@@ -245,7 +245,7 @@ def compute_embedding(model, pc, cl, device, params):
 if __name__ == "__main__":
     config_file = '../config/config_cyd_cross.txt'
     model_config_file = '../models/minkloc_hybrid.txt'
-    weights_file = '/home/wzj/pan1/MinkLocBevCrossRerank-main/weights/model_MinkLocHybrid_20260312_1738_final.pth'
+    weights_file = '/home/wzj/pan1/MinkLocBevCrossRerank-main/weights/model_MinkLocHybrid_20260309_1105_final.pth'
 
     params = TrainingParams(config_file, model_config_file, debug=False)
     device = "cuda" if torch.cuda.is_available() else "cpu"
