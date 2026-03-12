@@ -29,6 +29,7 @@
 * **特征提取**: 遍历 Database 和 Query 集合，一次性提取所有点云的全局特征 (`glob_emb`) 和序列特征 (`seq_emb`)。
 * **粗检索 (Coarse Retrieval)**: 对 Database 的全局特征建立 `KDTree`，查询每个 Query 的最近的 25 个候选帧，计算 `Recall@N`。
 * **精检索重排序 (Fine Re-ranking)**: 取出这 25 个候选帧的序列特征，使用 `compute_dtw_distance`（支持序列正反向双向匹配）计算 DTW 距离，按距离从小到大重新排序，得到最终的 Fine `Recall@1/5/10`。
+* `eval/evaluate_cyd_JointScore.py`在第二阶段重排序时，不要只按 DTW 距离排序。应该构建一个联合得分 (Joint Score)：`Final_Distance=β⋅DistanceBEV​+(1−β)⋅DistanceDTW`,让 BEV 的全局特征差异和 Cross 的局部序列差异共同投票，这样能极大程度压制“长得像但不在一个路口”的假阳性。
 
 ### 3. 旋转鲁棒性评估: `eval/evaluate_cyd_rotation.py`
 用于验证模型在面对偏航角 (Yaw) 剧烈变化时的鲁棒性：
